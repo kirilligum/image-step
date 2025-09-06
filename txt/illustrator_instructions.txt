@@ -1,0 +1,71 @@
+Master Prompt:
+"Create a minimalist, black and white line art illustration in the style of an IKEA instruction manual. The image must have:
+
+Style: Clean, simple, and precise black lines on a stark white background.
+
+Color: Strictly black and white only. No color, no gradients, no grayscale, no shading.
+
+Perspective: A clear isometric or 3/4 view that makes the objects and connections easy to understand.
+
+Focus: The image should only contain the specific parts and tools relevant to the step. No backgrounds, no environments, no shadows, no text or written labels.
+
+Visual Cues: Use dotted lines to show alignment or how parts connect. Use solid arrows to show the direction of movement, insertion, or rotation. Use circular callouts to magnify small, important details.
+
+Human Figure: If a person is required, depict a simple, friendly, gender-neutral, stylized line-art character.
+
+The final image should be clear, easy to interpret, and focused entirely on the assembly action."
+
+
+
+
+strict constraints for illustrators to ensure absolute visual consistency across all images, regardless of who creates them.
+
+1. Line Work
+
+Line Weight: All lines must have a single, uniform weight (e.g., 2pt). There should be no variation in thickness for outlines, details, or action lines.
+
+Line Style: Use only solid, 100% black strokes. No brushes, textures, tapering, or artistic effects.
+
+Line Caps & Joins: All line endings must be flat/butt caps. All corners must be sharp miter joins. No rounded caps or joins.
+
+2. Color and Shading
+
+Palette: The only colors permitted are Black (#000000) and White (#FFFFFF).
+
+Fill: All shapes must have a solid white fill or no fill.
+
+Shading: Do not use gradients, shadows, grayscale, hatching, or any other form of shading. The style is strictly flat line art.
+
+Exception: The "De-burr" step requires a simple, flat red for the 'X' and a simple, flat green for the checkmark. These are the only exceptions in the entire instruction set.
+
+3. Perspective and Composition
+
+Projection: All illustrations must be drawn in a consistent isometric projection. Do not use any other perspective (e.g., one-point, two-point, or flat elevation).
+
+Layout: Center the primary subject of the step. Maintain a generous margin of white space around all elements. Avoid placing objects too close to the edge of the frame.
+
+Simplicity: Only include objects and components that are directly involved in the current step. Do not add background details, environments, or unnecessary clutter.
+
+4. Objects and Components
+
+Model Sheet: Before starting, reference a master model sheet (to be created) for all recurring components (EMT poles, fittings, lag bolts, bungees, tools). Every instance of a component must look identical across all illustrations.
+
+Simplification: Render objects with the minimum amount of detail required for them to be clearly identifiable. Focus on clean, geometric shapes.
+
+5. Graphical Cues
+
+Action Arrows: Use solid black, filled, simple triangular arrowheads. Use these to indicate direct motion (inserting, tightening, pushing).
+
+Alignment/Path Lines: Use dashed black lines with a consistent dash and gap length (e.g., 4px dash, 4px gap). Use these to show where a part will be positioned.
+
+Circular Callouts: To magnify a detail, encircle the area with a thin, solid black line. Lead a straight line from this circle to an enlarged view, which should also be contained within a larger circle.
+
+Quantity Notations: Use a simple, bold, sans-serif font (e.g., Helvetica Bold, Arial Bold) for quantity markers like "x6". This is the only acceptable use of text.
+
+6. Stylized Human Figure ("The Assembler")
+
+Construction: Build the character from simple geometric shapes: a circle for the head, ovals or rectangles for the torso and limbs.
+
+Features: The character should be gender-neutral and featureless. No hair, ears, or mouth. If showing emotion is necessary (as in the "De-burr" step), simple dot eyes or a simple curve for a mouth is acceptable.
+
+Hands: Depict hands in their simplest form—a "mitten" shape with a thumb is often sufficient to show grip and action. Avoid drawing individual fingers unless absolutely necessary for clarity.
