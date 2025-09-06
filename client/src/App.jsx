@@ -16,19 +16,22 @@ const MOCK_API_RESPONSE = {
       id: 1,
       title: "Step 1: Assemble the Roof Rafters",
       text: "Take four 10-foot EMT pipes. On each pipe, mark the center point at 5 feet. Using a pipe bender, create a 15-degree bend at the center mark. You will now have four bent rafters.",
-      imagePrompt: "A clear, black and white diagram showing a 10-foot EMT pipe with a 15-degree bend at its center. Ikea assembly instruction style."
+      imagePrompt: "A clear, black and white diagram showing a 10-foot EMT pipe with a 15-degree bend at its center. Ikea assembly instruction style.",
+      comments: []
     },
     {
       id: 2,
       title: "Step 2: Build the Roof A-Frames",
       text: "Take two of the bent rafters and an A-frame connector. Slide the ends of the two rafters into the connector to form a peak. Secure them with the provided eye-bolts. Repeat this for the other two rafters to create a second A-frame.",
-      imagePrompt: "A clear, black and white diagram showing two bent EMT pipes being inserted into a metal A-frame peak connector with eye-bolts. Ikea assembly instruction style."
+      imagePrompt: "A clear, black and white diagram showing two bent EMT pipes being inserted into a metal A-frame peak connector with eye-bolts. Ikea assembly instruction style.",
+      comments: []
     },
     {
       id: 3,
       title: "Step 3: Connect the A-Frames",
       text: "Stand the two A-frames up, about 10 feet apart. Take two new 10-foot EMT pipes (these are your ridge poles). Connect the two A-frames at their peaks using these two ridge poles and four-way connectors.",
-      imagePrompt: "A clear, black and white diagram showing two A-frames being connected at the top by two parallel 10-foot EMT pipes. Ikea assembly instruction style."
+      imagePrompt: "A clear, black and white diagram showing two A-frames being connected at the top by two parallel 10-foot EMT pipes. Ikea assembly instruction style.",
+      comments: []
     }
   ]
 };
@@ -52,15 +55,36 @@ function App() {
     setInstructionSteps({ ...instructionSteps, detailedSteps: updatedSteps });
   };
 
+  const handlePostComment = (stepId, commentText) => {
+    const newComment = { id: Date.now(), text: commentText };
+    const updatedSteps = instructionSteps.detailedSteps.map((step) => {
+      if (step.id === stepId) {
+        return { ...step, comments: [...step.comments, newComment] };
+      }
+      return step;
+    });
+    setInstructionSteps({ ...instructionSteps, detailedSteps: updatedSteps });
+  };
+
   const handlePublish = () => {
     setIsPublished(true);
     console.log("Instructions published!");
   };
 
   const handleGenerateKnowledge = () => {
-    console.log("--- GENERATED AI KNOWLEDGE ---");
-    console.log(JSON.stringify(instructionSteps, null, 2));
-    alert("AI Knowledge has been logged to the console.");
+    if (!instructionSteps) return;
+
+    const dataStr = JSON.stringify(instructionSteps, null, 2);
+    const dataBlob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(dataBlob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ai-knowledge.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -102,7 +126,13 @@ function App() {
           </ol>
           <hr />
           {instructionSteps.detailedSteps.map((step) => (
-            <Step key={step.id} step={step} onStepChange={handleStepChange} isPublished={isPublished} />
+            <Step
+              key={step.id}
+              step={step}
+              onStepChange={handleStepChange}
+              isPublished={isPublished}
+              onPostComment={handlePostComment}
+            />
           ))}
         </div>
       )}

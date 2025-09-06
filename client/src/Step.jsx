@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './Step.css';
+import Comments from './Comments';
 
-const Step = ({ step, onStepChange, isPublished }) => {
+const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
   const [currentText, setCurrentText] = useState(step.text);
   const [currentImagePrompt, setCurrentImagePrompt] = useState(step.imagePrompt);
 
@@ -49,6 +50,13 @@ const Step = ({ step, onStepChange, isPublished }) => {
           )}
         </div>
       </div>
+      {isPublished && (
+        <Comments
+          stepId={step.id}
+          comments={step.comments}
+          onPostComment={onPostComment}
+        />
+      )}
     </div>
   );
 };
