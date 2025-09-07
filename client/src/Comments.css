@@ -7,6 +7,7 @@
 .comments-section h4 {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .comments-list .comment {
@@ -29,6 +30,13 @@
   margin-top: 1rem;
 }
 
+.comment-form input,
+.comment-form textarea {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
 .comment-textarea {
   width: 100%;
   min-height: 60px;
@@ -44,4 +52,8 @@
 
 .post-button {
   align-self: flex-end;
+}
+
+.comment-item {
+  color: #ffffff;
 }
