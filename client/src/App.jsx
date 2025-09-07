@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Step from './Step';
+import placeholderSteps from './placeholderSteps';
 
 const MOCK_API_RESPONSE = {
   overview: "This project outlines how to build a sturdy 10x20 EMT shade structure, ideal for events like Burning Man. It uses common fittings and standard 10-foot EMT conduit pipes.",
@@ -41,11 +42,32 @@ function App() {
   const [rawInstructions, setRawInstructions] = useState('');
   const [instructionSteps, setInstructionSteps] = useState(null);
   const [isPublished, setIsPublished] = useState(false);
+  const [devMode, setDevMode] = useState(false);
 
   const handleGenerate = () => {
-    console.log('Generating instructions for:', rawInstructions);
-    // Simulate API call
-    setInstructionSteps(MOCK_API_RESPONSE);
+    if (devMode) {
+      // Use placeholder steps when in dev mode
+      setInstructionSteps({
+        overview: "This project outlines how to build a sturdy 10x20 EMT shade structure, ideal for events like Burning Man. It uses common fittings and standard 10-foot EMT conduit pipes.",
+        overviewSteps: [
+          "Materials & Tools Checklist",
+          "Cut Your Legs (Pre-Playa Preparation)",
+          "The Home Build (Test Assembly)",
+          "Label Everything! (Pre-Playa Preparation)",
+          "Assemble the Roof (On-Playa Assembly)",
+          "Attach the Shade Cloth (On-Playa Assembly)",
+          "Raise The Structure (On-Playa Assembly)",
+          "Secure Bungees (On-Playa Assembly)",
+          "Drive the Lag Bolts (Anchoring for High Winds)",
+          "Attach Ratchet Straps (Anchoring for High Winds)"
+        ],
+        detailedSteps: placeholderSteps
+      });
+    } else {
+      console.log('Generating instructions for:', rawInstructions);
+      // Simulate API call
+      setInstructionSteps(MOCK_API_RESPONSE);
+    }
   };
 
   const handleStepChange = (stepId, updatedStep) => {
@@ -96,6 +118,14 @@ function App() {
           <p>
             Enter the instructions for your project below. The more detailed, the better!
           </p>
+          <label style={{ display: 'block', marginBottom: '1rem' }}>
+            <input
+              type="checkbox"
+              checked={devMode}
+              onChange={(e) => setDevMode(e.target.checked)}
+            />
+            Dev Mode (Use Placeholders)
+          </label>
           <textarea
             className="instructions-textarea"
             value={rawInstructions}
