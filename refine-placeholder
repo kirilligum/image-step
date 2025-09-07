@@ -1,0 +1,6 @@
+/drop
+/add       client/public/steps/steps.txt
+/add       client/src/App.css
+/add       client/src/App.jsx
+/add       client/src/Step.jsx
+/add       client/src/placeholderSteps.js

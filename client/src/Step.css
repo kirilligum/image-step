@@ -48,6 +48,10 @@
   color: #ffffff;
 }
 
+.step-image-placeholder p {
+  color: #ffffff;
+}
+
 .step-text {
   margin: 0;
   line-height: 1.6;
