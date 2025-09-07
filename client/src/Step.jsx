@@ -14,7 +14,11 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
   };
 
   const handleImageRefine = () => {
-    onStepChange(step.id, { ...step, imagePrompt: currentImagePrompt });
+    if (step.id === 10) {
+      onStepChange(step.id, { ...step, imagePrompt: '/steps/emt-step-10-a.jpeg' });
+    } else {
+      onStepChange(step.id, { ...step, imagePrompt: currentImagePrompt });
+    }
   };
 
   return (
