@@ -7,8 +7,6 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
   const [currentImagePrompt, setCurrentImagePrompt] = useState(step.imagePrompt);
 
   const handleTextRefine = () => {
-    // In a real app, this would trigger an API call.
-    // For now, we update the parent component's state.
     onStepChange(step.id, { ...step, text: currentText });
   };
 
@@ -16,24 +14,37 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
     onStepChange(step.id, { ...step, imagePrompt: currentImagePrompt });
   };
 
+  // Check if we have an actual image path (from dev mode)
+  const hasImage = step.imagePrompt && step.imagePrompt.startsWith('/steps/');
+
   return (
     <div className="step-widget">
       <h3>{step.title}</h3>
       <div className="step-content">
         <div className="step-image-container">
-          <div className="step-image-placeholder">
-            <p>Image for: "{step.imagePrompt}"</p>
-          </div>
-          {!isPublished && (
-            <div className="refine-group">
-              <input
-                type="text"
-                value={currentImagePrompt}
-                onChange={(e) => setCurrentImagePrompt(e.target.value)}
-                className="refine-input"
-              />
-              <button onClick={handleImageRefine}>Refine Image</button>
-            </div>
+          {hasImage ? (
+            <img 
+              src={step.imagePrompt} 
+              alt={step.title}
+              style={{ maxWidth: '100%', maxHeight: '300px' }}
+            />
+          ) : (
+            <>
+              <div className="step-image-placeholder">
+                <p>Image for: "{step.imagePrompt}"</p>
+              </div>
+              {!isPublished && (
+                <div className="refine-group">
+                  <input
+                    type="text"
+                    value={currentImagePrompt}
+                    onChange={(e) => setCurrentImagePrompt(e.target.value)}
+                    className="refine-input"
+                  />
+                  <button onClick={handleImageRefine}>Refine Image</button>
+                </div>
+              )}
+            </>
           )}
         </div>
         <div className="step-text-container">
