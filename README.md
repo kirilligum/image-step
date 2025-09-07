@@ -8,6 +8,15 @@ At Burning Man 2025, a huge storm caused many improperly built EMT (Electrical M
 
 This project was born from that real-world incident to help people create proper visual instructions for building EMT shade structures (and other DIY projects) quickly and accurately. The goal is to prevent future accidents by ensuring structures are built correctly through clear, consistent visual guidance.
 
+## User Use Case
+
+1. **Input Project Description**: User describes what they want to build (e.g., "EMT shade structure for Burning Man with 10 feet by 10 feet canopy")
+2. **AI-Powered Step Generation**: The app uses Gemini 2.5 Pro to automatically break down the project into structured steps with JSON output
+3. **Visual Instruction Creation**: For each step, the app generates consistent-style images using Gemini's visual model based on a predefined style guide
+4. **Refinement Process**: Users can refine both images and text instructions for each step using input fields and refine buttons
+5. **Publish & Share**: Users publish their final instructions, removing refinement controls and enabling community comments
+6. **AI Training Data Generation**: Users can generate human-reviewed AI training data to improve future AI understanding of construction processes
+
 ## Project Description
 
 This is a React.js web application that leverages Google's Gemini AI to generate step-by-step visual instructions for DIY projects, with a focus on EMT shade structures for events like Burning Man.
