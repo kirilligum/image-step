@@ -118,14 +118,6 @@ function App() {
           <p>
             Enter the instructions for your project below. The more detailed, the better!
           </p>
-          <label style={{ display: 'block', marginBottom: '1rem' }}>
-            <input
-              type="checkbox"
-              checked={devMode}
-              onChange={(e) => setDevMode(e.target.checked)}
-            />
-            Dev Mode (Use Placeholders)
-          </label>
           <textarea
             className="instructions-textarea"
             value={rawInstructions}
@@ -135,6 +127,14 @@ function App() {
           <button onClick={handleGenerate}>
             Generate Instructions
           </button>
+          <label style={{ display: 'block', marginTop: '1rem' }}>
+            <input
+              type="checkbox"
+              checked={devMode}
+              onChange={(e) => setDevMode(e.target.checked)}
+            />
+            dev/prod
+          </label>
         </>
       ) : (
         <div className="instructions-container">
