@@ -73,3 +73,10 @@
   min-height: 80px;
   resize: vertical;
 }
+
+.generated-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}

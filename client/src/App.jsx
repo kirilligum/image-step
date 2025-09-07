@@ -2,57 +2,47 @@ import { useState } from 'react';
 import './App.css';
 import Step from './Step';
 
-const MOCK_API_RESPONSE = {
-  overview: "This project outlines how to build a sturdy 10x20 EMT shade structure, ideal for events like Burning Man. It uses common fittings and standard 10-foot EMT conduit pipes.",
-  overviewSteps: [
-    "Assemble the 4 roof rafters.",
-    "Build the 2 roof A-frames.",
-    "Connect the A-frames with the ridge poles.",
-    "Attach the 6 legs.",
-    "Secure the structure with a tarp."
-  ],
-  detailedSteps: [
-    {
-      id: 1,
-      title: "Step 1: Assemble the Roof Rafters",
-      text: "Take four 10-foot EMT pipes. On each pipe, mark the center point at 5 feet. Using a pipe bender, create a 15-degree bend at the center mark. You will now have four bent rafters.",
-      imagePrompt: "A clear, black and white diagram showing a 10-foot EMT pipe with a 15-degree bend at its center. Ikea assembly instruction style.",
-      comments: []
-    },
-    {
-      id: 2,
-      title: "Step 2: Build the Roof A-Frames",
-      text: "Take two of the bent rafters and an A-frame connector. Slide the ends of the two rafters into the connector to form a peak. Secure them with the provided eye-bolts. Repeat this for the other two rafters to create a second A-frame.",
-      imagePrompt: "A clear, black and white diagram showing two bent EMT pipes being inserted into a metal A-frame peak connector with eye-bolts. Ikea assembly instruction style.",
-      comments: []
-    },
-    {
-      id: 3,
-      title: "Step 3: Connect the A-Frames",
-      text: "Stand the two A-frames up, about 10 feet apart. Take two new 10-foot EMT pipes (these are your ridge poles). Connect the two A-frames at their peaks using these two ridge poles and four-way connectors.",
-      imagePrompt: "A clear, black and white diagram showing two A-frames being connected at the top by two parallel 10-foot EMT pipes. Ikea assembly instruction style.",
-      comments: []
-    }
-  ]
-};
-
-
 function App() {
   const [rawInstructions, setRawInstructions] = useState('');
   const [instructionSteps, setInstructionSteps] = useState(null);
   const [isPublished, setIsPublished] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGenerate = () => {
-    console.log('Generating instructions for:', rawInstructions);
-    // Simulate API call
-    setInstructionSteps(MOCK_API_RESPONSE);
+  const handleGenerate = async () => {
+    if (!rawInstructions || isLoading) return;
+
+    setIsLoading(true);
+    setInstructionSteps(null);
+    try {
+      const response = await fetch('http://localhost:5000/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: rawInstructions }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setInstructionSteps(result);
+
+    } catch (error) {
+      console.error("Error fetching from backend:", error);
+      alert("Failed to generate instructions. Please check the console and make sure the backend server is running.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // The refinement and comment logic now needs to be re-wired if we want to support it.
+  // For now, we will disable refinement and keep comment logic as is (it works on the frontend state).
   const handleStepChange = (stepId, updatedStep) => {
-    const updatedSteps = instructionSteps.detailedSteps.map((step) =>
-      step.id === stepId ? updatedStep : step
-    );
-    setInstructionSteps({ ...instructionSteps, detailedSteps: updatedSteps });
+    // This function is now effectively disabled as the backend handles all generation.
+    // We could re-wire this to call a new backend endpoint for refinement.
+    console.log("Step refinement is not yet wired to the backend.");
   };
 
   const handlePostComment = (stepId, commentText) => {
@@ -68,16 +58,13 @@ function App() {
 
   const handlePublish = () => {
     setIsPublished(true);
-    console.log("Instructions published!");
   };
 
   const handleGenerateKnowledge = () => {
     if (!instructionSteps) return;
-
     const dataStr = JSON.stringify(instructionSteps, null, 2);
     const dataBlob = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(dataBlob);
-
     const link = document.createElement("a");
     link.href = url;
     link.download = "ai-knowledge.json";
@@ -91,22 +78,9 @@ function App() {
     <div className="app-container">
       <h1>DIY Visual Instruction Generator</h1>
 
-      {!instructionSteps ? (
-        <>
-          <p>
-            Enter the instructions for your project below. The more detailed, the better!
-          </p>
-          <textarea
-            className="instructions-textarea"
-            value={rawInstructions}
-            onChange={(e) => setRawInstructions(e.target.value)}
-            placeholder="e.g., How to assemble a 10x20 EMT shade structure for Burning Man..."
-          />
-          <button onClick={handleGenerate}>
-            Generate Instructions
-          </button>
-        </>
-      ) : (
+      {isLoading ? (
+        <h2>Generating your instructions... Please wait.</h2>
+      ) : instructionSteps ? (
         <div className="instructions-container">
           <div className="actions-header">
             <button onClick={handlePublish} disabled={isPublished}>
@@ -116,7 +90,6 @@ function App() {
               Generate AI Knowledge
             </button>
           </div>
-
           <h2>{instructionSteps.overview}</h2>
           <h3>Steps:</h3>
           <ol className="overview-steps-list">
@@ -135,6 +108,21 @@ function App() {
             />
           ))}
         </div>
+      ) : (
+        <>
+          <p>
+            Enter the instructions for your project below. The more detailed, the better!
+          </p>
+          <textarea
+            className="instructions-textarea"
+            value={rawInstructions}
+            onChange={(e) => setRawInstructions(e.target.value)}
+            placeholder="e.g., How to assemble a 10x20 EMT shade structure for Burning Man..."
+          />
+          <button onClick={handleGenerate} disabled={isLoading}>
+            {isLoading ? "Generating..." : "Generate Instructions"}
+          </button>
+        </>
       )}
     </div>
   );

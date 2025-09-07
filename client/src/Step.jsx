@@ -3,17 +3,13 @@ import './Step.css';
 import Comments from './Comments';
 
 const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
+  // The local state for inputs is still useful for a controlled component,
+  // even if the backend refinement is not yet wired up.
   const [currentText, setCurrentText] = useState(step.text);
   const [currentImagePrompt, setCurrentImagePrompt] = useState(step.imagePrompt);
 
-  const handleTextRefine = () => {
-    // In a real app, this would trigger an API call.
-    // For now, we update the parent component's state.
-    onStepChange(step.id, { ...step, text: currentText });
-  };
-
-  const handleImageRefine = () => {
-    onStepChange(step.id, { ...step, imagePrompt: currentImagePrompt });
+  const handleRefineClick = () => {
+    alert("Refinement functionality is not yet implemented in this version.");
   };
 
   return (
@@ -22,7 +18,13 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
       <div className="step-content">
         <div className="step-image-container">
           <div className="step-image-placeholder">
-            <p>Image for: "{step.imagePrompt}"</p>
+            {step.imageData && step.imageData !== 'failed' ? (
+              <img src={`data:image/png;base64,${step.imageData}`} alt={step.title} className="generated-image" />
+            ) : step.imageData === 'failed' ? (
+              <p>Image generation failed.</p>
+            ) : (
+              <p>Generating image...</p>
+            )}
           </div>
           {!isPublished && (
             <div className="refine-group">
@@ -31,8 +33,11 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
                 value={currentImagePrompt}
                 onChange={(e) => setCurrentImagePrompt(e.target.value)}
                 className="refine-input"
+                readOnly // Make read-only until refinement is implemented
               />
-              <button onClick={handleImageRefine}>Refine Image</button>
+              <button onClick={handleRefineClick} disabled>
+                Refine Image
+              </button>
             </div>
           )}
         </div>
@@ -44,8 +49,11 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
                 value={currentText}
                 onChange={(e) => setCurrentText(e.target.value)}
                 className="refine-textarea"
+                readOnly // Make read-only until refinement is implemented
               />
-              <button onClick={handleTextRefine}>Refine Text</button>
+              <button onClick={handleRefineClick} disabled>
+                Refine Text
+              </button>
             </div>
           )}
         </div>
