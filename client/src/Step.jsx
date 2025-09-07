@@ -4,7 +4,10 @@ import Comments from './Comments';
 
 const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
   const [currentText, setCurrentText] = useState(step.text);
-  const [currentImagePrompt, setCurrentImagePrompt] = useState(step.imagePrompt);
+
+  // Check if we have an actual image path (from dev mode)
+  const hasImage = step.imagePrompt && step.imagePrompt.startsWith('/steps/');
+  const [currentImagePrompt, setCurrentImagePrompt] = useState(hasImage ? '' : step.imagePrompt);
 
   const handleTextRefine = () => {
     onStepChange(step.id, { ...step, text: currentText });
@@ -13,9 +16,6 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
   const handleImageRefine = () => {
     onStepChange(step.id, { ...step, imagePrompt: currentImagePrompt });
   };
-
-  // Check if we have an actual image path (from dev mode)
-  const hasImage = step.imagePrompt && step.imagePrompt.startsWith('/steps/');
 
   return (
     <div className="step-widget">
@@ -29,27 +29,27 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
               style={{ maxWidth: '100%', maxHeight: '300px' }}
             />
           ) : (
-            <>
-              <div className="step-image-placeholder">
-                <p>Image for: "{step.imagePrompt}"</p>
-              </div>
-              {!isPublished && (
-                <div className="refine-group">
-                  <input
-                    type="text"
-                    value={currentImagePrompt}
-                    onChange={(e) => setCurrentImagePrompt(e.target.value)}
-                    className="refine-input"
-                  />
-                  <button onClick={handleImageRefine}>Refine Image</button>
-                </div>
-              )}
-            </>
+            <div className="step-image-placeholder">
+              <p>Image for: "{step.imagePrompt}"</p>
+            </div>
+          )}
+          {!isPublished && (
+            <div className="refine-group">
+              <input
+                type="text"
+                value={currentImagePrompt}
+                onChange={(e) => setCurrentImagePrompt(e.target.value)}
+                className="refine-input"
+                placeholder="Refine image prompt..."
+              />
+              <button onClick={handleImageRefine}>Refine Image</button>
+            </div>
           )}
         </div>
         <div className="step-text-container">
-          <p className="step-text">{step.text}</p>
-          {!isPublished && (
+          {isPublished ? (
+            <p className="step-text">{step.text}</p>
+          ) : (
             <div className="refine-group">
               <textarea
                 value={currentText}
