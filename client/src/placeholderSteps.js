@@ -1,22 +1,15 @@
 const placeholderSteps = [
   {
-    id: 0,
-    title: "Step 0: Materials & Tools Checklist",
-    text: "Your essential gear for building a robust shade structure.",
-    imagePrompt: "/steps/emt-step-0.jpeg",
-    comments: []
-  },
-  {
     id: 1,
-    title: "Step 1: Cut Your Legs (Pre-Playa Preparation)",
-    text: "Carefully measuring and cutting EMT conduit into leg pieces, followed by de-burring the edges.",
+    title: "Step 1: Materials & Tools Checklist",
+    text: "Your essential gear for building a robust shade structure.",
     imagePrompt: "/steps/emt-step-1.jpeg",
     comments: []
   },
   {
     id: 2,
-    title: "Step 2: The Home Build (Test Assembly)",
-    text: "Assembling the roof frame on the ground to ensure all fittings and poles connect correctly.",
+    title: "Step 2: Cut Your Legs (Pre-Playa Preparation)",
+    text: "Carefully measuring and cutting EMT conduit into leg pieces, followed by de-burring the edges.",
     imagePrompt: "/steps/emt-step-2.jpeg",
     comments: []
   },
