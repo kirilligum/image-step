@@ -61,11 +61,15 @@ function App() {
   };
 
   // The refinement and comment logic now needs to be re-wired if we want to support it.
-  // For now, we will disable refinement and keep comment logic as is (it works on the frontend state).
+  // For now, refinement works on the frontend state.
   const handleStepChange = (stepId, updatedStep) => {
-    // This function is now effectively disabled as the backend handles all generation.
-    // We could re-wire this to call a new backend endpoint for refinement.
-    console.log("Step refinement is not yet wired to the backend.");
+    const updatedSteps = instructionSteps.detailedSteps.map((step) => {
+      if (step.id === stepId) {
+        return updatedStep;
+      }
+      return step;
+    });
+    setInstructionSteps({ ...instructionSteps, detailedSteps: updatedSteps });
   };
 
   const handlePostComment = (stepId, commentText) => {
