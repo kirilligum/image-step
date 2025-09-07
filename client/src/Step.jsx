@@ -2,18 +2,24 @@ import React, { useState } from 'react';
 import './Step.css';
 import Comments from './Comments';
 
-const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
+const Step = ({ step, onStepChange, isPublished, onPostComment, devMode }) => {
   const [currentText, setCurrentText] = useState(step.text);
 
   // Check if we have an actual image path (from dev mode)
   const hasImage = step.imagePrompt && step.imagePrompt.startsWith('/steps/');
   const [currentImagePrompt, setCurrentImagePrompt] = useState(hasImage ? '' : step.imagePrompt);
 
-  const handleTextRefine = () => {
+  const handleTextRefine = async () => {
+    if (devMode) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
     onStepChange(step.id, { ...step, text: currentText });
   };
 
-  const handleImageRefine = () => {
+  const handleImageRefine = async () => {
+    if (devMode) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
     if (step.id === 10) {
       onStepChange(step.id, { ...step, imagePrompt: '/steps/emt-step-10-a.jpeg' });
     } else {

@@ -12,6 +12,9 @@ function App() {
 
   const handleGenerate = async () => {
     if (devMode) {
+      setIsLoading(true);
+      // Simulate a 5-second network delay in dev mode
+      await new Promise(resolve => setTimeout(resolve, 5000));
       // Use placeholder steps when in dev mode
       setInstructionSteps({
         overview: "This project outlines how to build a sturdy 10x20 EMT shade structure, ideal for events like Burning Man. It uses common fittings and standard 10-foot EMT conduit pipes.",
@@ -29,6 +32,7 @@ function App() {
         ],
         detailedSteps: placeholderSteps
       });
+      setIsLoading(false);
       return;
     }
 
@@ -132,6 +136,7 @@ function App() {
               onStepChange={handleStepChange}
               isPublished={isPublished}
               onPostComment={handlePostComment}
+              devMode={devMode}
             />
           ))}
         </div>
