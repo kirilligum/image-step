@@ -21,18 +21,21 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
     <div className="step-widget">
       <h3>{step.title}</h3>
       <div className="step-content">
-        <div className="step-image-container">
-          {hasImage ? (
-            <img 
-              src={step.imagePrompt} 
-              alt={step.title}
-              style={{ maxWidth: '100%', maxHeight: '300px' }}
-            />
-          ) : (
-            <div className="step-image-placeholder">
-              <p>Image for: "{step.imagePrompt}"</p>
-            </div>
-          )}
+        <div className="step-details">
+          <div className="step-text-container">
+            {isPublished ? (
+              <p className="step-text">{step.text}</p>
+            ) : (
+              <div className="refine-group">
+                <textarea
+                  value={currentText}
+                  onChange={(e) => setCurrentText(e.target.value)}
+                  className="refine-textarea"
+                />
+                <button onClick={handleTextRefine}>Refine Text</button>
+              </div>
+            )}
+          </div>
           {!isPublished && (
             <div className="refine-group">
               <input
@@ -46,17 +49,16 @@ const Step = ({ step, onStepChange, isPublished, onPostComment }) => {
             </div>
           )}
         </div>
-        <div className="step-text-container">
-          {isPublished ? (
-            <p className="step-text">{step.text}</p>
+        <div className="step-image-container">
+          {hasImage ? (
+            <img 
+              src={step.imagePrompt} 
+              alt={step.title}
+              style={{ maxWidth: '100%', maxHeight: '300px' }}
+            />
           ) : (
-            <div className="refine-group">
-              <textarea
-                value={currentText}
-                onChange={(e) => setCurrentText(e.target.value)}
-                className="refine-textarea"
-              />
-              <button onClick={handleTextRefine}>Refine Text</button>
+            <div className="step-image-placeholder">
+              <p>Image for: "{step.imagePrompt}"</p>
             </div>
           )}
         </div>
