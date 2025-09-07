@@ -13,7 +13,7 @@
   margin-top: 0;
   border-bottom: 2px solid #646cff;
   padding-bottom: 0.5rem;
-  color: #eee;
+  color: #ffffff;
 }
 
 .step-content {
@@ -45,7 +45,7 @@
   padding: 1rem;
   text-align: center;
   font-style: italic;
-  color: #aaa;
+  color: #ffffff;
 }
 
 .step-text {
@@ -55,6 +55,7 @@
   padding: 1rem;
   border-radius: 8px;
   min-height: 100px;
+  color: #ffffff;
 }
 
 .refine-group {
