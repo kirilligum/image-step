@@ -1,0 +1,31 @@
+- project description 
+    - the following is a transcript of my brainstorming of a hackathon project over voice so there might be transcription errors.  give your feedback. do you see any flaws or better alternatives? ask my clarifying question if you have any
+        - Speaker 1 00:00
+    - This is a hackathon projects. For a hackathon. That focuses on AI image generation. The idea of? A project is to build a tool. That helps people create visual instructions faster. Specifically for DIY projects or any kind of build instructions. The use case or the application is building shade structure from EMT. Tubes for Burning Man? Uh, this last burning man. In 2025, there was a huge storm. And because people didn't know how to build properly shade structures, a lot of shade structures were flying, damaging cars, hitting people, and that's metal tubes. Hitting people is dangerous. And this all happened because people didn't build the EMT structures properly. The empty shade structures properly. Uh, the. This app would be structured. It would be built in react.js. Since the hackathon as a backhand just used a Json file or just keep everything in memory. Or ask your light. Whatever databases, the fastest. But it's basically react. Gs app or maybe it's react contacts. Uh, that should be enough. So, whatever is Quakers quickest on users? Amount of tools or Library, so we don't have problems with integration.
+    - 02:09
+    - Now, let's. Talk through what the app does so. In the beginning, there is an input field where the person is inputting. What they need to build, like instructions, and they can refine the instruction using another tool like Gemini chart interface or. Uh, chargpt interface.
+    - 02:38
+    - And then they input this text. Then, this tax goes into. Uh, open AI API had a lamp call or. Gemini, Google. Uh, AI call, since this is a. Gemini model hackathon visual model hackathon. Let's use Google tools so it calls. And Gemini. 2.5 Pro model. And that model. Takes the instructions that has tabs. And breaks it down into multiple steps as. Structured output. Json. And.
+    - 03:30
+    - Each and also has. Uh, overall explanation for what the project is. And. If there exists, use cases the reason to break it down into steps, explanation, and use cases. Later week. For each step, we're gonna have a separate prompt that should include the explanation and overview of the project. And. Elsa. It would be nice to have a section of overview steps, so like short list of steps and then detail steps. And later, so it breaks it down to this structured output format. And then. The UI creates a widget for each step and in that widget.
+    - 04:29
+    - There would be an image. Generated for that step. Uh, with, uh, there is a schema. And. All images have to be in the same style so. I also create. Constant variable string that explains what the style is in detail, so it's consistent so the style could be a typical Ikea Furniture assembly style, so it's like black and white clear instructions. It's easy to see focuses on details. Nothing is super small. You have to be able to see everything. So, there's this style guide for images. So, based on that style guide, each step gets image generated. And then. Uh. Widget for the step has an input field. And the button. Refine for images. An input step in input field and the button refined for the text. Because. That should besides the image. There's also. Text instructions. You have to have a. So, for each step, there's a step widget and that step widget. There's an image and there is text associated with that step. Uh, you can refine both of them, and when you click refine button, it uses the prompt of the total project and total steps and. Asks you to? Use the refine commands. To change the image, the existing image to the new one, and also. Uh, puts that image into the context. So, it basically has the whole context of the step and the other steps, and then refines it using the feedback.
+    - 06:44
+    - And the same thing is for the prompt. To refine the text. So that's for each step, and then. In the end, there is a button. To publish. And when you click publish button.
+    - 07:09
+    - Refine input fields and buttons disappear for all of the steps. And. All you and what appears is comments, so you can comment on each steps and you can upload image associated with each step. And.
+    - 07:32
+    - Uh, that's it then. It's published, like, so you have a comment input field. You can click pause and it post the comment.
+    - to keep initial consistency in style, when breaking down into steps before breaking down the steps, ask Google 2.5 flash image model. generate images for each steps
+    - when green publish button next to the publish button also add a button to generate AI knowledge. this would generate a flat with the images and text that AI can use for training, the benefit of this is that it's human reviewed AI generated data that helps AI to understand the process better and not hallucinate
+    - 
+- steps
+    - input a prompt of what you want to build with instructions and such
+    - splits into steps using json or xml
+    - each step generates an image
+    - each step's image has an input field for refinement
+    - each step has text that can be refined with an input field
+    - (later version but keep in mind) upload an image as an example
+    - (later version but keep in mind) dive into details (substeps)
+    - publish button that removes all the input fields and creates comment fields 
+
